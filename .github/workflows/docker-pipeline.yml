@@ -1,0 +1,17 @@
+name: docker-pipeline
+on: push
+jobs:
+  sysfooci-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v6
+      - name: build image
+        run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/hello-pipeline-python:v1 .
+      - name: verify image
+        run: docker images
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3.6.0
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
