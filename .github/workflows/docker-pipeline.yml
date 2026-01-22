@@ -11,7 +11,7 @@ jobs:
       - name: verify image
         run: docker images
       - name: Create Container
-        run: docker run --name app -itd -p 8080:80 ${{ vars.DOCKERHUB_USERNAME }}/hello-pipeline-python:v1
+        run: docker run --name app -itd -p 8080:8080 ${{ vars.DOCKERHUB_USERNAME }}/hello-pipeline-python:v1
       - name: verify container
         run: docker ps
       - name: sleep
