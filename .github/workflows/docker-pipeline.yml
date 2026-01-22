@@ -1,7 +1,14 @@
 name: docker-pipeline
-on: push
+on:
+ push:
+     paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - 'sample/'
+      - 'CONTRIBUTING.md'
+
 jobs:
-  sysfooci-job:
+  docker-pipeline-job:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
@@ -26,5 +33,5 @@ jobs:
       - name: push image
         run: docker push ${{ vars.DOCKERHUB_USERNAME }}/hello-pipeline-python:v1 
       - name: cleanup
-        run: docker -f rm app
+        run: docker rm -f app
 
