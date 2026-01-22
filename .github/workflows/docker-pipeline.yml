@@ -10,11 +10,19 @@ jobs:
         run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/hello-pipeline-python:v1 .
       - name: verify image
         run: docker images
+      - name: Create Container
+        run: docker run --name app -itd -p 8080:80 ${{ vars.DOCKERHUB_USERNAME }}/hello-pipeline-python:v1
+      - name: verify container
+        run: docker ps
+      - name: print output
+        run: curl http://localhost:8080
       - name: Login to Docker Hub
         uses: docker/login-action@v3.6.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: push image
-        run: docker push ${{ vars.DOCKERHUB_USERNAME }}/hello-pipeline-python:v1         
-          
+        run: docker push ${{ vars.DOCKERHUB_USERNAME }}/hello-pipeline-python:v1 
+      - name: cleanup
+        run: docker rm app
+
