@@ -50,7 +50,7 @@ jobs:
       - name: wait time
         run: kubectl wait --for=condition=ready pod -l app=python
       - name: get deployment status
-        run: kubectl get deploy, service -n python-app
+        run: kubectl get deploy,service -n python-app
       - name: Test service URLs
         run: |
           minikube service list
