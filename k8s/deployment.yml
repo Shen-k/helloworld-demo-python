@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: python
-        image: shen19/hello-pipeline-python
+        image: shen19/hello-pipeline-python:v1
         ports:
         - containerPort: 8080
