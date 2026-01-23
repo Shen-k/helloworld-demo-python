@@ -46,13 +46,11 @@ jobs:
       - name: test minikube is up
         run: kubectl get pods -A
       - name: deployment of files
-        run: |
-          kubectl apply -f k8s/.
-          kubectl wait --for=condition=ready pod -l app=python
+        run: kubectl apply -f k8s/.
+      - name: wait time
+       run: kubectl wait --for=condition=ready pod -l app=python
       - name: get deployment status
-        run: | 
-          kubectl get ns
-          kubectl get deploy, service -n python-app
+        run: kubectl get deploy, service -n python-app
       - name: Test service URLs
         run: |
           minikube service list
